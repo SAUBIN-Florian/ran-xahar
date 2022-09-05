@@ -10,7 +10,6 @@ export const Item = z.object({
   quantity: z.number().min(1),
 });
 
-type Item = z.infer<typeof Item>;
-
+export type Item = z.infer<typeof Item>;
 export type ItemWithId = WithId<Item>;
 export const Items = db.collection<Item>('items');
