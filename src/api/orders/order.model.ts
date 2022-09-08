@@ -1,15 +1,17 @@
 import * as z from 'zod';
+import { WithId } from 'mongodb';
 
 import { Item } from '../items/items.model';
+import { db } from '../../db';
 
-const Order = z.object({
-  id: z.string().uuid(),
+export const Order = z.object({
+  name: z.string(),
   email: z.string().email(),
   phone: z.string(),
-  items: z.array(Item).min(1),
+  items: z.array(Item),
   timestamp: z.date(),
 });
 
-type Order = z.infer<typeof Order>;
-
-export default Order;
+export type Order = z.infer<typeof Order>;
+export type OrderWithId = WithId<Order>;
+export const Orders = db.collection<Order>('orders');

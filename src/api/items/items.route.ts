@@ -44,13 +44,11 @@ router.post('/', async (req: Request<{}, ItemWithId, Item>, res: Response, next:
 // UPDATE ONE
 router.put('/:id', async (req: Request<{ id: string }, ItemWithId, Item>, res: Response, next: NextFunction) => {
   try {
-    const result = await Items.findOneAndUpdate({
-      _id: new ObjectId(req.params.id),
-    }, {
-      $set: req.body,
-    }, {
-      returnDocument: 'after',
-    });
+    const result = await Items.findOneAndUpdate(
+      { _id: new ObjectId(req.params.id) }, 
+      { $set: req.body }, 
+      { returnDocument: 'after' },
+    );
 
     if (!result.value) {
       res.status(404);
